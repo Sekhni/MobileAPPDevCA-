@@ -3,11 +3,13 @@ package com.ca1mobileappdev
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ca1mobileappdev.models.AppData
 import com.ca1mobileappdev.models.RentalBusiness
+import timber.log.Timber
 
 class BusinessListActivity : AppCompatActivity() {
 
@@ -25,12 +27,16 @@ class BusinessListActivity : AppCompatActivity() {
         adapter = BusinessAdapter(
             businesses = AppData.businesses.findAll(),
 
-            onEdit = { business ->
-                editBusiness(business)
-            },
+            listener = object : OnBusinessListener {
 
-            onDelete = { business ->
-                deleteBusiness(business)
+                override fun onBusinessClick(business: RentalBusiness) {
+                    editBusiness(business)
+                }
+
+                override fun onBusinessLongClick(business: RentalBusiness): Boolean {
+                    deleteBusiness(business)
+                    return true
+                }
             }
         )
 
@@ -63,6 +69,8 @@ class BusinessListActivity : AppCompatActivity() {
 
     private fun editBusiness(business: RentalBusiness) {
 
+        Timber.d("Editing business id=${business.id}, name=${business.name}")
+
         val intent =
             Intent(this, AddEditActivity::class.java)
 
@@ -73,10 +81,19 @@ class BusinessListActivity : AppCompatActivity() {
 
     private fun deleteBusiness(business: RentalBusiness) {
 
-        AppData.businesses.delete(business.id)
+        AlertDialog.Builder(this)
+            .setTitle("Delete this business?")
+            .setPositiveButton("Delete") { _, _ ->
 
-        adapter.updateBusinesses(
-            AppData.businesses.findAll()
-        )
+                Timber.d("Deleting business id=${business.id}, name=${business.name}")
+
+                AppData.businesses.delete(business.id)
+
+                adapter.updateBusinesses(
+                    AppData.businesses.findAll()
+                )
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 }
