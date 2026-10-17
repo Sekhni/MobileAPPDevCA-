@@ -1,0 +1,5 @@
+[33m829a298[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32missue-5-listener-timber[m[33m)[m add listener interface, delete confirmation and Timber logging
+[33m7fea039[m[33m ([m[1;32mmain[m[33m)[m add listener interface, delete confirmation and Timber logging
+[33meb3e717[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/5-add-main-menu-screen[m[33m)[m Merge pull request #4 from Sekhni/issue-2-model-list
+[33m2681e94[m[33m ([m[1;31morigin/issue-2-model-list[m[33m, [m[1;32missue-2-model-store[m[33m, [m[1;32missue-2-model-list[m[33m)[m add RentalBusiness model and in-memory data list
+[33m9684c70[m[33m ([m[1;31morigin/issue-2-model-store[m[33m)[m Merge pull request #2 from Sekhni/issue-1-setup-project
